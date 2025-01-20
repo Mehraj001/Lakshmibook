@@ -1,0 +1,75 @@
+.navbar {
+        height: 40px; /* Fixed height */
+        background-color: rgb(82, 100, 152);
+        display: flex; /* Flexbox for horizontal alignment */
+        align-items: center;
+        padding: 0 15px;
+        overflow: hidden; /* Prevent unnecessary overflow */
+      }
+      
+      /* Navbar items wrapper */
+      .navbar-items {
+        display: flex; /* Keep all items in a single row */
+        flex-wrap: nowrap; /* Prevent wrapping */
+        overflow-x: auto; /* Allow horizontal scrolling */
+        scrollbar-width: none; /* Hide scrollbar on Firefox */
+        -ms-overflow-style: none; /* Hide scrollbar on IE/Edge */
+      }
+      
+      .navbar-items::-webkit-scrollbar {
+        display: none; /* Hide scrollbar on Chrome, Safari, Edge */
+      }
+      
+      /* Navbar items */
+      .nav-item {
+        list-style: none; /* Remove default bullet points */
+        margin-right: 5px; /* Add spacing between items */
+        flex-shrink: 0; /* Prevent items from shrinking */
+      }
+      
+      /* Navbar links */
+      .nav-link {
+        color: white;
+        font-weight: 500;
+        text-decoration: none; /* Remove underline */
+        padding: 10px 15px;
+        white-space: nowrap; /* Prevent text from wrapping */
+      }
+      
+      /* Hover effect */
+      .nav-link:hover {
+        color: white;
+        border-bottom: 2px solid white;
+      }
+      
+      /* Active state */
+      .nav-link.active-item {
+        color: white;
+        border-bottom: 2px solid white;
+      }
+      
+      /* Small screen adjustments */
+      @media (max-width: 768px) {
+        .navbar-items {
+          display: flex; /* Ensure horizontal layout */
+          overflow-x: auto; /* Enable horizontal scrolling */
+          
+        }
+      
+        .nav-item {
+          margin-right: 10px; /* Reduce spacing for smaller screens */
+        }
+      }
+      
+      @media (max-width: 576px) {
+        .navbar-items {
+          display: flex; /* Ensure horizontal layout */
+          overflow-x: auto; /* Enable horizontal scrolling */
+          
+        }
+      
+        .nav-item {
+          margin-right: 0px; /* Reduce spacing for smaller screens */
+          
+        }
+      }

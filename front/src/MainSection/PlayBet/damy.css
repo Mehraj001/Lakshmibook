@@ -1,0 +1,92 @@
+.andhar-table,.bahar-table{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+/* General Styling */
+.andar-containor-bhar {
+  background-color: #abe0d9;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+/* Table styles for Andar and Bahar */
+.andhar-table table, .bahar-table table {
+    width: 1141px; /* Fixed width to accommodate 14 cards */
+    height: 80px; /* Fixed height for the table */
+    margin: -5px auto; /* Center the table horizontally */
+    border-collapse: collapse; /* Collapse borders for uniform spacing */
+  }
+  
+  /* Hide table borders for all tables */
+  .andhar-table table, .bahar-table table, td {
+    border: none; /* No border for the table */
+  }
+  
+  /* Style for table cells specific to Andar and Bahar */
+  .andhar-table td, .bahar-table td {
+    width: 50px; /* Fixed width for each cell */
+    height: 100px; /* Fixed height for each cell */
+    padding: 5px;
+    text-align: center;
+    vertical-align: middle; /* Center the content vertically in each cell */
+  }
+  
+  /* Empty cell style for both Andar and Bahar tables */
+  .andhar-table td.empty, .bahar-table td.empty {
+    background-color: transparent;  /* Empty cells will be transparent */
+  }
+  
+  /* Style for cards */
+  .andhar-table td img, .bahar-table td img {
+    width: 100%;  /* Ensure cards fill the cell */
+    height: auto;  /* Maintain aspect ratio */
+    display: block;  /* Remove any extra spacing around images */
+  }
+  
+  /* Optional: Highlight the card image when required */
+  .andhar-table td img.highlight, .bahar-table td img.highlight {
+    border: 2px solid yellow;
+  }
+  
+  /* Center card (Joker) style */
+  .center-card img {
+    width: 100px; /* Joker card size */
+    margin: 20px 0;
+    border: 5px solid #fff;
+    transition: border 0.5s ease-in-out;
+  }
+  
+  /* Styling for titles */
+  h1, h2 {
+    color: #fff;
+  }
+  
+  /* Button styling for betting */
+  .andrbtn{
+    background-color: #444;
+    color: #fff;
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .andrbtn:hover {
+    background-color: #555;
+  }
+  
+  /* Button container */
+  .battingseystem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tablebharcontainor{
+    background-color: #c38d8d;
+  }
+  
