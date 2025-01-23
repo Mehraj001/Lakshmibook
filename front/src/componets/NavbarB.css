@@ -1,6 +1,6 @@
 .navbar {
         height: 40px; /* Fixed height */
-        background-color: rgb(82, 100, 152);
+        background-color: black;
         display: flex; /* Flexbox for horizontal alignment */
         align-items: center;
         padding: 0 15px;
