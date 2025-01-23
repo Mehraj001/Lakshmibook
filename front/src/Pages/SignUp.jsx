@@ -57,7 +57,7 @@ function SignUp() {
   return (
     <div>
       <div className="logo">
-        <h1>Lakshmi Book</h1>
+{/*         <h1>Lakshmi Book</h1> */}
       </div>
       <div className="login-container2">
         <nav className="navbar">
