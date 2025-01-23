@@ -304,7 +304,7 @@ function Login1() {
     e.preventDefault();
     // const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/bets`,newBet);
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/login`, {
+      const response = await fetch(`https://lakshmibook-api.vercel.app/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -336,7 +336,7 @@ function Login1() {
 
   const handleDemoLogin = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/demo-login', {
+      const response = await fetch('https://lakshmibook-api.vercel.app/api/demo-login', {
         method: 'GET',
       });
       const data = await response.json();
