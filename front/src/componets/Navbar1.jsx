@@ -285,7 +285,7 @@ const Navbar1 = () => {
       <nav id="navbar">
         <div id="navbar-container">
           <h1 id="logo">
-            Bunnybet9
+            LakshmiBook
           </h1>
           <ul id="nav-menu">
             <div>
