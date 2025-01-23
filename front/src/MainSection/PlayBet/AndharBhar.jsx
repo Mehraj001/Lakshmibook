@@ -135,7 +135,7 @@ const LiveVideoFeed = () => {
         const userId = objectId.id;
         
         try {
-            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/wallet/update`, {
+            const response = await axios.post(`https://lakshmibook-api.vercel.app/wallet/update`, {
                 userId, // Ensure `userId` is available in your frontend
                 amount, // Pass the winning amount 
             }
@@ -194,7 +194,7 @@ const LiveVideoFeed = () => {
             };
 
             try {
-                const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/bets`, newBet); // Send request to backend
+                const response = await axios.post(`https://lakshmibook-api.vercel.app/api/bets`, newBet); // Send request to backend
                 if (response.data.success) {
                     setSelectedBet({ label: "", odds: "" });
                     setStakeValue("");
@@ -237,7 +237,7 @@ const LiveVideoFeed = () => {
             try {
                 const userId = userData.id;
                 console.log(userId);
-                const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/bets/${userId}`);
+                const response = await axios.get(`https://lakshmibook-api.vercel.app/api/bets/${userId}`);
                 if (response.data.success) {
                     setMyBets(response.data.bets);
                 } else {
