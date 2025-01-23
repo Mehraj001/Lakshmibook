@@ -32,11 +32,128 @@ const LiveVideoFeed = () => {
     }
   }, [selectedBet.odds, stakeValue]); // Recalculate profit whenever odds or stake changes
 
-  const fetchBets = async () => {
+
+
+
+
+//   const fetchBets = async () => {
+//     try {
+//       // const response = await axios.get('http://localhost:5000/api/bets');
+//       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/bets`);
+//       if (response.data.success) {
+//         setMyBets(response.data.bets); // Update the state with the fetched bets
+//       } else {
+//         alert("Failed to fetch bets");
+//       }
+//     } catch (err) {
+//       console.error('Error fetching bets:', err);
+//       alert("There was an error fetching bets.");
+//     }
+//   };
+
+// // Use useEffect to fetch bets on component mount
+// useEffect(() => {
+//     fetchBets(); // Call the fetch function
+// }, []);
+
+
+//   const handleSubmit = async () => {
+//     if (selectedBet.label && selectedBet.odds && stakeValue) {
+//       const newBet = {
+//         label: selectedBet.label,
+//         odds: selectedBet.odds,
+//         stake: stakeValue,
+//         profit: profit.toFixed(2),
+//       };
+//       try {
+//         // const response = await axios.post('http://localhost:5000/api/bets', newBet);
+//         const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/bets`,newBet);
+//         if (response.data.success) {
+//           // setMyBets((prevBets) => [...prevBets, response.data.bet]);
+//           // fetchBets();
+//           setSelectedBet({ label: "", odds: "" });
+//           setStakeValue("");
+//           setProfit(0);
+//           alert("Bet placed successfully!");
+//           window.location.reload();
+        
+//         }
+//       } catch (err) {
+//         console.error('Error placing bet:', err);
+//         alert("There was an error placing your bet. Please try again.");
+//       }
+//     } else {
+//       alert("Please fill in all the details (label, odds, stake).");
+//     }
+//   };
+
+
+
+
+
+const [userData, setUserData] = useState(null);
+const handleSubmit = async () => {
+  if (selectedBet.label && selectedBet.odds && stakeValue > 0) {
+    const userData = localStorage.getItem('user');
+    if (!userData) {
+      alert("User is not logged in. Please log in to place a bet.");
+      return;
+    }
+    const objectId = JSON.parse(userData);
+    const userId = objectId.id;
+    
+    // Make sure profit is a number
+    const calculatedProfit = (parseFloat(stakeValue) * parseFloat(selectedBet.odds) - parseFloat(stakeValue)).toFixed(2);
+
+    const newBet = {
+      userId,
+      label: selectedBet.label,
+      odds: parseFloat(selectedBet.odds),
+      stake: parseFloat(stakeValue),
+      profit: calculatedProfit,
+    };
+
     try {
-      const response = await axios.get('http://localhost:5000/api/bets');
+      // const response = await axios.post('http://localhost:5000/api/bets', newBet); // Send request to backend
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/bets`,newBet);
       if (response.data.success) {
-        setMyBets(response.data.bets); // Update the state with the fetched bets
+        setSelectedBet({ label: "", odds: "" });
+        setStakeValue("");
+        setProfit(0);
+
+        alert(`Bet placed successfully! Your updated wallet balance`);
+        window.location.reload();
+      } else {
+        alert(response.data.message || "Failed to place bet.");
+      }
+    } catch (err) {
+      console.error("Error placing bet:", err);
+      alert("There was an error placing your bet. Please try again.");
+    }
+  } else {
+    alert("Please fill in all the details (label, odds, stake). Stake must be greater than 0.");
+  }
+};
+
+//fatch all user bets 
+useEffect(() => {
+  const user = localStorage.getItem('user');
+  if (user) {
+    setUserData(JSON.parse(user));
+  } else {
+    alert("User is not logged in. Please log in to view your bets.");
+  }
+}, []);
+
+// Fetch user's bets from the backend based on userId
+const fetchBets = async () => {
+  if (userData) {
+    try {
+      const userId = userData.id; 
+      console.log(userId);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/bets/${userId}`); 
+      if (response.data.success) {
+        setMyBets(response.data.bets); 
       } else {
         alert("Failed to fetch bets");
       }
@@ -44,42 +161,15 @@ const LiveVideoFeed = () => {
       console.error('Error fetching bets:', err);
       alert("There was an error fetching bets.");
     }
-  };
-
-// Use useEffect to fetch bets on component mount
+  }
+};
 useEffect(() => {
-    fetchBets(); // Call the fetch function
-}, []);
+  if (userData) {
+    fetchBets();
+  }
+}, [userData]);
 
 
-  const handleSubmit = async () => {
-    if (selectedBet.label && selectedBet.odds && stakeValue) {
-      const newBet = {
-        label: selectedBet.label,
-        odds: selectedBet.odds,
-        stake: stakeValue,
-        profit: profit.toFixed(2),
-      };
-      try {
-        const response = await axios.post('http://localhost:5000/api/bets', newBet);
-        if (response.data.success) {
-          // setMyBets((prevBets) => [...prevBets, response.data.bet]);
-          // fetchBets();
-          setSelectedBet({ label: "", odds: "" });
-          setStakeValue("");
-          setProfit(0);
-          alert("Bet placed successfully!");
-          window.location.reload();
-        
-        }
-      } catch (err) {
-        console.error('Error placing bet:', err);
-        alert("There was an error placing your bet. Please try again.");
-      }
-    } else {
-      alert("Please fill in all the details (label, odds, stake).");
-    }
-  };
 
 
 

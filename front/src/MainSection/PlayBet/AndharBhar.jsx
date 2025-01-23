@@ -31,6 +31,8 @@ import img24 from '../assets/spades_king.png';
 import img25 from '../assets/spades_queen.png';
 import img26 from '../assets/joker_red.png';
 import './damy.css';
+import { useProfile } from '../context/ProfileContext';
+
 const LiveVideoFeed = () => {
     const [currentTime, setCurrentTime] = useState(new Date());
     const [selectedBet, setSelectedBet] = useState({ label: "", odds: "" }); // State for label and odds
@@ -38,7 +40,7 @@ const LiveVideoFeed = () => {
     const [profit, setProfit] = useState(0); // For calculating and storing profit
     const [myBets, setMyBets] = useState([]); // State to store all placed bets
     const [isOpen, setIsOpen] = useState(false);
-    const arr = ["A", "B", "A", "A", "B"];
+    const arr = ["R", "R", "R", "R", "R"];
     const [userData, setUserData] = useState(null);
     const [deck, setDeck] = useState([]);
     const [jokerCard, setJokerCard] = useState(null);
@@ -51,6 +53,7 @@ const LiveVideoFeed = () => {
     const [userBet, setUserBet] = useState(null);
     const [resultMessage, setResultMessage] = useState(null);
     const [highlightCard, setHighlightCard] = useState(null);
+    const { fetchNameWallet } = useProfile();
 
     const createDeck = () => {
         return [
@@ -90,8 +93,14 @@ const LiveVideoFeed = () => {
                 const randomWinner = Math.random() < 0.5 ? "Andar" : "Bahar";
                 setWinner(randomWinner);
                 if (userBet) {
-                    setResultMessage(userBet === randomWinner ? "You win!" : "You lose!");
+                    const isWin = userBet === randomWinner;
+                    setResultMessage(isWin ? "You win!" : "You lose!");
+                    if (isWin) {
+                        const winningAmount = 100; // Replace with actual logic for calculating winnings
+                        updateWallet(winningAmount); // Call the backend to update the wallet
+                    }
                 }
+
                 if (randomWinner === "Andar") {
                     andar.push(joker);
                     setHighlightCard("Andar");
@@ -115,8 +124,37 @@ const LiveVideoFeed = () => {
             }
 
             index++;
+
         }, 1000);
     };
+
+
+    const updateWallet = async (amount) => {
+        const userData = localStorage.getItem('user');
+        const objectId = JSON.parse(userData);
+        const userId = objectId.id;
+        
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/wallet/update`, {
+                userId, // Ensure `userId` is available in your frontend
+                amount, // Pass the winning amount 
+            }
+            );
+
+            if (response.data.success) {
+                console.log("Wallet updated successfully!");
+                fetchNameWallet(); // Refresh the wallet balance
+            } else {
+                console.error("Failed to update wallet:", response.data.message);
+            }
+        } catch (error) {
+            console.error("Error updating wallet:", error);
+        }
+    };
+
+
+
+
 
     useEffect(() => {
         if (countdown > 0) {
@@ -145,7 +183,7 @@ const LiveVideoFeed = () => {
             const userId = objectId.id;
 
             // Make sure profit is a number
-            const calculatedProfit = (parseFloat(stakeValue) * parseFloat(selectedBet.odds) - parseFloat(stakeValue)).toFixed(2);
+            const calculatedProfit = (parseFloat(stakeValue) * parseFloat(selectedBet.odds+1))
 
             const newBet = {
                 userId,
@@ -156,14 +194,17 @@ const LiveVideoFeed = () => {
             };
 
             try {
-                const response = await axios.post('http://localhost:5000/api/bets', newBet); // Send request to backend
+                const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/bets`, newBet); // Send request to backend
                 if (response.data.success) {
                     setSelectedBet({ label: "", odds: "" });
                     setStakeValue("");
                     setProfit(0);
 
                     alert(`Bet placed successfully! Your updated wallet balance`);
-                    window.location.reload();
+                    setUserBet(newBet.label)
+                    fetchBets();
+                    fetchNameWallet();
+                    // window.location.reload();
                 } else {
                     alert(response.data.message || "Failed to place bet.");
                 }
@@ -196,7 +237,7 @@ const LiveVideoFeed = () => {
             try {
                 const userId = userData.id;
                 console.log(userId);
-                const response = await axios.get(`http://localhost:5000/api/bets/${userId}`);
+                const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/bets/${userId}`);
                 if (response.data.success) {
                     setMyBets(response.data.bets);
                 } else {
@@ -242,6 +283,7 @@ const LiveVideoFeed = () => {
 
     const handleCellClick = (label, odds) => {
         setSelectedBet({ label, odds });
+        // setUserBet(label)
     };
 
     return (
@@ -272,14 +314,14 @@ const LiveVideoFeed = () => {
                             <div>
                                 <p>Countdown for betting: {countdown}s</p>
                                 <div className="battingseystem">
-                                    <button className="andrbtn" onClick={() => setUserBet("Andar")}>Bet on Andar</button>
-                                    <button className="andrbtn" onClick={() => setUserBet("Bahar")}>Bet on Bahar</button>
-                                    <button className="andrbtn" onClick={() => setUserBet("Tie")}>Bet on Tie</button>
+                                    <button className="andrbtn" onClick={() => handleCellClick("Andar", "1.5")}>Bet on Andar</button>
+                                    <button className="andrbtn" onClick={() => handleCellClick("Bahar", "1.5")}>Bet on Bahar</button>
+                                    <button className="andrbtn" onClick={() => handleCellClick("Tie", "2")}>Bet on Tie</button>
                                 </div>
                                 {userBet && <p>Your Bet: {userBet}</p>}
                             </div>
                         ) : gameInProgress ? (
-                            <p>Distributing cards...</p>
+                            <p>Waiting for result!......</p>
                         ) : (
                             <p>Waiting for next round...</p>
                         )}
@@ -330,10 +372,11 @@ const LiveVideoFeed = () => {
                         </table>
                     </div>
                 </div>
-                <div>
+                <div className="winnerres">
                     {/* Show Winner and Result Message */}
-                    {winner && <h2>Winner: {winner}</h2>}
-                    {resultMessage && <h3>{resultMessage}</h3>}
+                    {winner && <h2 className="winner">Winner: {winner}</h2>}
+                    {resultMessage && <h3 className="winner2">{resultMessage}</h3>}
+
                 </div>
                 <div className="right-sidebar-for-mobile">
                     <div className="place-bet">

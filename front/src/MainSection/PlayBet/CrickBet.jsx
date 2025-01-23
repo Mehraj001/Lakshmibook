@@ -24,8 +24,10 @@ const LiveVideoFeed = () => {
   const [isPaused, setIsPaused] = useState(false); 
   const location = useLocation();
   const { game_id, home_team, away_team } = location.state|| {};
-  const [userData, setUserData] = useState(null);
 
+
+
+  const [userData, setUserData] = useState(null);
   const handleSubmit = async () => {
     if (selectedBet.label && selectedBet.odds && stakeValue > 0) {
       const userData = localStorage.getItem('user');
@@ -48,7 +50,8 @@ const LiveVideoFeed = () => {
       };
   
       try {
-        const response = await axios.post('http://localhost:5000/api/bets', newBet); // Send request to backend
+        // const response = await axios.post('http://localhost:5000/api/bets', newBet); // Send request to backend
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/bets`,newBet);
         if (response.data.success) {
           setSelectedBet({ label: "", odds: "" });
           setStakeValue("");
@@ -67,12 +70,8 @@ const LiveVideoFeed = () => {
       alert("Please fill in all the details (label, odds, stake). Stake must be greater than 0.");
     }
   };
-  
-
 
   //fatch all user bets 
-
-  
   useEffect(() => {
     const user = localStorage.getItem('user');
     if (user) {
@@ -88,7 +87,7 @@ const LiveVideoFeed = () => {
       try {
         const userId = userData.id; 
         console.log(userId);
-        const response = await axios.get(`http://localhost:5000/api/bets/${userId}`); 
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/bets/${userId}`); 
         if (response.data.success) {
           setMyBets(response.data.bets); 
         } else {
@@ -105,6 +104,9 @@ const LiveVideoFeed = () => {
       fetchBets();
     }
   }, [userData]);
+
+
+
 
 
 

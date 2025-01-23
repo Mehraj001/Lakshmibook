@@ -2,6 +2,8 @@ const Bet = require('../models/betModel');
 const User_Wallet = require('../models/Wallet'); 
 const User = require('../models/UserSignUp');  
 const mongoose = require('mongoose');
+
+
 exports.placeBet = async (req, res) => {
   try {
     const { label, odds, stake, profit, userId } = req.body;
@@ -51,6 +53,9 @@ exports.placeBet = async (req, res) => {
   }
 };
 
+
+
+
 exports.getUserBets = async (req, res) => {
   const { userId } = req.params; 
   try {
@@ -77,5 +82,31 @@ exports.getUserBets = async (req, res) => {
       success: false,
       message: 'Error fetching bets',
     });
+  }
+};
+
+
+
+
+
+
+exports.updateWallet = async (req, res) => {
+  const { userId, amount } = req.body;
+
+  try {
+      // Find the user by ID
+      const userWallet = await User_Wallet.findOne({ user: userId });
+      if (!userWallet) {
+          return res.status(404).json({ success: false, message: "User not found" });
+      }
+
+      // Update the wallet balance
+      userWallet.balance += amount;
+      await userWallet.save();
+
+      res.json({ success: true, message: "Wallet updated successfully", walletBalance: user.walletBalance });
+  } catch (error) {
+      console.error("Error updating wallet:", error);
+      res.status(500).json({ success: false, message: "Server error" });
   }
 };

@@ -216,9 +216,6 @@
 //for multuser changes 
 
 
-
-
-
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
@@ -226,17 +223,25 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const axios = require("axios");
 const jwt = require('jsonwebtoken');
-const User=require('./models/UserSignUp');
-const User_Wallet=require('./models/Wallet');
+const User = require('./models/UserSignUp');
+const User_Wallet = require('./models/Wallet');
 const betRoutes = require('./Routes/betRoutes');
 const ApiRoutes = require('./Routes/ApiRoutes');
+
+// Load environment variables from .env file
+require('dotenv').config(); // Using CommonJS style for dotenv
+
 const app = express();
-const PORT = 5000;
 app.use(bodyParser.json());
-app.use(express.json()); 
+app.use(express.json());
 app.use(cors());
 
-mongoose.connect('mongodb://localhost:27017/vijetha_exchange')
+// Access environment variables
+const PORT = process.env.PORT || 5000;
+const MONGO_URI = process.env.MONGODB_URI;
+
+// Connect to MongoDB
+mongoose.connect(MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.log('Error connecting to MongoDB: ', err));
 
@@ -353,7 +358,7 @@ app.post('/api/login', async (req, res) => {
 });
 
 
-      const API_KEY = "00ab9edf2816c39de6acd27a23b6ce11";
+      const API_KEY = "48fd6c53ac5aebb752ef248b659f5992";
       const BASE_URL = "https://api.the-odds-api.com/v4/sports/cricket/odds/";
       
       app.get("/api/sports-data", async (req, res) => {
@@ -368,6 +373,9 @@ app.post('/api/login', async (req, res) => {
       });
 
 
+
+
+      
       app.get('/api/balance', async (req, res) => {
         try {
           let wallet = await User_Wallet.findOne(); // Retrieve wallet document

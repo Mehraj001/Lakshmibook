@@ -5,6 +5,7 @@
         align-items: center;
         padding: 0 15px;
         overflow: hidden; /* Prevent unnecessary overflow */
+        width: 98%;
       }
       
       /* Navbar items wrapper */

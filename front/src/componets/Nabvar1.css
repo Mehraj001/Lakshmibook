@@ -252,6 +252,7 @@ body {
       @media (max-width: 768px) {
         #navbar {
           padding: 0 10px;
+          width: 102%;
         }
       
         .nav-button {

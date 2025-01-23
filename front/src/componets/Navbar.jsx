@@ -14,7 +14,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchBalance = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/balance');
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/balance`);
         setBalance(res.data.balance);
       } catch (err) {
         console.error('Error fetching balance:', err);

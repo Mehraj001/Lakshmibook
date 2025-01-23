@@ -5,67 +5,79 @@
     align-items: center;
     width: 100%;
 }
-/* General Styling */
+
 .andar-containor-bhar {
-  background-color: #abe0d9;
-  color: #fff;
+  background: linear-gradient(to right, #a13800d6, #79c5cd);
+  
+  color: #fff; 
   font-family: Arial, sans-serif;
   text-align: center;
   padding: 20px;
 }
-/* Table styles for Andar and Bahar */
+
+
 .andhar-table table, .bahar-table table {
-    width: 1141px; /* Fixed width to accommodate 14 cards */
-    height: 80px; /* Fixed height for the table */
-    margin: -5px auto; /* Center the table horizontally */
-    border-collapse: collapse; /* Collapse borders for uniform spacing */
+    width: 1141px; 
+    height: 80px;
+    margin: -5px auto;
+    border-collapse: collapse;
   }
   
-  /* Hide table borders for all tables */
+  
   .andhar-table table, .bahar-table table, td {
-    border: none; /* No border for the table */
+    border: none;
   }
   
-  /* Style for table cells specific to Andar and Bahar */
+ 
   .andhar-table td, .bahar-table td {
-    width: 50px; /* Fixed width for each cell */
-    height: 100px; /* Fixed height for each cell */
+    width: 50px;
+    height: 100px; 
     padding: 5px;
     text-align: center;
-    vertical-align: middle; /* Center the content vertically in each cell */
+    vertical-align: middle; 
   }
   
-  /* Empty cell style for both Andar and Bahar tables */
+
   .andhar-table td.empty, .bahar-table td.empty {
-    background-color: transparent;  /* Empty cells will be transparent */
+    background-color: transparent; 
   }
   
-  /* Style for cards */
+
   .andhar-table td img, .bahar-table td img {
-    width: 100%;  /* Ensure cards fill the cell */
-    height: auto;  /* Maintain aspect ratio */
-    display: block;  /* Remove any extra spacing around images */
+    width: 100%;  
+    height: auto;  
+    display: block;  
   }
   
-  /* Optional: Highlight the card image when required */
+ 
   .andhar-table td img.highlight, .bahar-table td img.highlight {
     border: 2px solid yellow;
   }
   
-  /* Center card (Joker) style */
   .center-card img {
-    width: 100px; /* Joker card size */
+    width: 100px;
     margin: 20px 0;
     border: 5px solid #fff;
     transition: border 0.5s ease-in-out;
   }
-  
-  /* Styling for titles */
-  h1, h2 {
+ 
+ .winner{
     color: #fff;
+    background: linear-gradient(to right, rgba(125, 77, 221, 0.801), #d331b8);
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .winner2{
+    color: #fff;
+    background: linear-gradient(to right, rgba(166, 212, 101, 0.801), #a846c0);
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
-  /* Button styling for betting */
   .andrbtn{
     background-color: #444;
     color: #fff;
@@ -79,7 +91,6 @@
     background-color: #555;
   }
   
-  /* Button container */
   .battingseystem {
     display: flex;
     align-items: center;
@@ -87,6 +98,46 @@
   }
 
   .tablebharcontainor{
-    background-color: #c38d8d;
+    background: linear-gradient(to right, rgb(239 114 114 / 68%), #79c5cd);
   }
+
+
+
   
+
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .andhar-table table, .bahar-table table {
+    width: 100%; /* Scale table to fit screen */
+    height: auto; /* Adjust height dynamically */
+  }
+
+  .andhar-table td, .bahar-table td {
+    width: 7%; /* Adjust cell width proportionally */
+    height: auto; /* Maintain responsive height */
+    padding: 3px; /* Reduce padding for smaller screens */
+  }
+
+  .andhar-table td img, .bahar-table td img {
+    width:150%; /* Fit card images within cells */
+    height: 120%; /* Maintain aspect ratio */
+  }
+
+  .center-card img {
+    width: 70px; /* Reduce Joker card size */
+    margin: 10px 0;
+  }
+
+  .winner, .winner2 {
+    font-size: 14px; /* Adjust text size */
+    height: 50px; /* Reduce height */
+  }
+
+  .andrbtn {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+}
+
+   

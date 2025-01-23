@@ -5,8 +5,11 @@ import { BrowserRouter, Routes,Route} from "react-router-dom";
 // import Login1 from './Pages/Login1';
 import Navbar1 from './componets/Navbar1';
 // import AndarBaharGame from './andhar_bhar/andharBhar';
+import {ProfileProvider} from './MainSection/context/ProfileContext';
+
 function App() {
   return (
+    <ProfileProvider>
     <BrowserRouter>
     <Navbar1/>
     <Routes>
@@ -15,6 +18,7 @@ function App() {
      {/* <Route path="/abc" element={<AndarBaharGame />}></Route> */}
     </Routes>
   </BrowserRouter>
+  </ProfileProvider>
   );
 }
 

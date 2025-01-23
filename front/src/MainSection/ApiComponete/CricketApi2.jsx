@@ -192,7 +192,8 @@ const GameList = () => {
   useEffect(() => {
     async function fetchSportsData() {
       try {
-        const response = await axios.get("http://localhost:5000/api/sports-data-2");
+        // const response = await axios.get("http://localhost:5000/api/sports-data-2");
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/sports-data-2`);
         setData(response.data.data || []); // Ensure the data is an array
         // console.log("Sports Data:", response.data.data);
       } catch (error) {

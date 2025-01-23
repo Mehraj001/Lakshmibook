@@ -339,7 +339,7 @@ function SignUp() {
     const userData = { username, email, password };
 
     try {
-      const response = await fetch('http://localhost:5000/api/signup', {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
