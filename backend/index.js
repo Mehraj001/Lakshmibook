@@ -23,12 +23,14 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://lakshmibook-front-infusion.vercel.app/", // Replace '*' with the specific origin(s) you want to allow, e.g., 'https://yourdomain.com'
-    methods: ['POST', 'GET'], // Define allowed HTTP methods
-    credentials: true, // Allow credentials like cookies to be sent
+    origin: "https://lakshmibook-front-infusion.vercel.app", // Front-end origin
+    methods: ['GET', 'POST', 'OPTIONS'], // Allowed methods
+    credentials: true, // Allow cookies or credentials
   })
 );
 
+// Handle preflight requests globally
+app.options('*', cors());
 // Access environment variables
 
 const MONGO_URI ='mongodb+srv://infusionwebsitescoin:FG6zMJvr2BKJ9Vph@cluster0.rnz0y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
