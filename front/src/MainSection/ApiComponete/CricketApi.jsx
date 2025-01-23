@@ -231,7 +231,7 @@ const GameList = () => {
   useEffect(() => {
     async function fetchSportsData() {
       try {
-        const response = await axios.get(`https://lakshmibook-api.vercel.app//api/sports-data`);
+        const response = await axios.get(`https://lakshmibook-api.vercel.app/api/sports-data`);
 
         // Combine existing data with newly fetched data to avoid duplication
         const combinedData = [...data, ...response.data];
