@@ -17,7 +17,7 @@ export const ProfileProvider = ({ children }) => {
         const id = objectId.id; // Extract the user ID
 
         try {
-            const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/name/${id}`);
+            const res = await axios.get(`https://lakshmibook-api.vercel.app/api/name/${id}`);
             setProfile({
                 username: res.data.username,
                 walletBalance: res.data.walletBalance,
