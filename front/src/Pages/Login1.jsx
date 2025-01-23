@@ -66,7 +66,7 @@ function Login1() {
   return (
     <div>
       <div className="logo">
-        <h1>Lakshmi Book</h1>
+       
       </div>
       <div className="login-container1">
         <nav className="navbar">
