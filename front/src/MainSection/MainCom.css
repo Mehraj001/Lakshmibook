@@ -1,6 +1,6 @@
 .maincontainor {
         display: flex;
-        flex-wrap: wrap; /* Allows wrapping for responsive design */
+    
         width: 100%;
         min-height: 100vh; /* Optional: Full viewport height */
       }
