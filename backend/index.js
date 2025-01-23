@@ -23,14 +23,14 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://lakshmibook-front-infusion.vercel.app", // Front-end origin
-    methods: ['GET', 'POST', 'OPTIONS'], // Allowed methods
+    origin: "https://www.lakshmibook.in", // Front-end origin
+    methods: ['GET', 'POST'], // Allowed methods
     credentials: true, // Allow cookies or credentials
   })
 );
 
 // Handle preflight requests globally
-app.options('*', cors());
+// app.options('*', cors());
 // Access environment variables
 
 const MONGO_URI ='mongodb+srv://infusionwebsitescoin:FG6zMJvr2BKJ9Vph@cluster0.rnz0y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
