@@ -17,7 +17,7 @@ const ApiRoutes = require('./Routes/ApiRoutes');
 
 // Load environment variables from .env file
 // require('dotenv').config(); // Using CommonJS style for dotenv
-
+const PORT =5000;
 const app = express();
 app.use(bodyParser.json());
 app.use(express.json());
@@ -30,7 +30,7 @@ app.use(
 );
 
 // Access environment variables
-const PORT =5000;
+
 const MONGO_URI ='mongodb+srv://infusionwebsitescoin:FG6zMJvr2BKJ9Vph@cluster0.rnz0y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 // Connect to MongoDB
