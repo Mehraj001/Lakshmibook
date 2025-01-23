@@ -236,7 +236,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://lakshmibook-front-infusion.vercel.app/", // Replace '*' with the specific origin(s) you want to allow, e.g., 'https://yourdomain.com'
+    origin: "https://lakshmibook-front-8o2oicm9c-infusion.vercel.app/", // Replace '*' with the specific origin(s) you want to allow, e.g., 'https://yourdomain.com'
     methods: ['POST', 'GET'], // Define allowed HTTP methods
     credentials: true, // Allow credentials like cookies to be sent
   })
