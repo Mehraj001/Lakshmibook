@@ -8,7 +8,7 @@ body {
       
       /* Navbar Styling */
       #navbar {
-        background-color: #002642;
+        background: linear-gradient(to right, #ff00008a, #000000);
         color: #070606;
         height: 70px;
         display: flex;
@@ -66,7 +66,7 @@ body {
         white-space: nowrap;
         overflow: hidden;
         padding: 5px 0;
-        background-color: #002642;
+/*         background-color: #002642; */
         color: #fff;
         font-size: 14px;
         text-align: center;
