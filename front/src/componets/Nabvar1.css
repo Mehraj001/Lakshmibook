@@ -268,6 +268,9 @@ body {
           width: 95%;
           max-height: 95vh;
         }
+        #nav-menu {
+        gap:0px;
+            }
       }
       
       @media (min-width: 785px) {
@@ -275,5 +278,8 @@ body {
           padding: 6px 12px;
           font-size: 16px;
         }
+        #nav-menu {
+        gap:0px;
+            }
       }
       
