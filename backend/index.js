@@ -33,7 +33,7 @@ app.use(
 // app.options('*', cors());
 // Access environment variables
 
-const MONGO_URI ='mongodb+srv://infusionwebsitescoin:FG6zMJvr2BKJ9Vph@cluster0.rnz0y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const MONGO_URI ='mongodb+srv://infusionwebsitescoin:FG6zMJvr2BKJ9Vph@cluster0.rnz0y.mongodb.net/laxhmibook?retryWrites=true&w=majority&appName=Cluster0';
 
 // Connect to MongoDB
 mongoose.connect(MONGO_URI)
