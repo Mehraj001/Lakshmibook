@@ -51,7 +51,7 @@ const LiveVideoFeed = () => {
   
       try {
         // const response = await axios.post('http://localhost:5000/api/bets', newBet); // Send request to backend
-        const response = await axios.post(`https://lakshmibook-api.vercel.app/api/bets`,newBet);
+        const response = await axios.post(`https://lakshmibook-api.vercel.app/api/bets`,newBet); 
         if (response.data.success) {
           setSelectedBet({ label: "", odds: "" });
           setStakeValue("");
